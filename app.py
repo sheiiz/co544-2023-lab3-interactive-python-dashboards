@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[9]:
+# In[2]:
 
 
 # Import relevant libraries
@@ -22,41 +22,41 @@ warnings.filterwarnings("ignore")
 data = pd.read_csv('data/winequality-red.csv')
 
 
-# In[10]:
+# In[3]:
 
 
 # Display info
 data.info()
 
 
-# In[11]:
+# In[4]:
 
 
 # Display first few rows of data
 data.head()
 
 
-# In[12]:
+# In[5]:
 
 
 # Check for missing values
 data.isna().sum()
 
 
-# In[13]:
+# In[6]:
 
 
 data.isnull().sum()
 
 
-# In[14]:
+# In[7]:
 
 
 # Remove duplicate data
 data.drop_duplicates(keep='first')
 
 
-# In[15]:
+# In[8]:
 
 
 # Correlation matrix
@@ -69,7 +69,7 @@ sns.heatmap(corr_matrix, center=0, cmap='Blues',annot=True)
 plt.show()
 
 
-# In[16]:
+# In[9]:
 
 
 # Check wine quality distribution
@@ -81,7 +81,7 @@ plt.ylabel('Quality Score')
 plt.show()
 
 
-# In[17]:
+# In[10]:
 
 
 # Label quality into Good (1) and Bad (0)
@@ -91,7 +91,7 @@ data['quality'] = data['quality'].apply(lambda x: 1 if x >= 6.0 else 0)
 data.head(50)
 
 
-# In[18]:
+# In[11]:
 
 
 # Check wine quality distribution
@@ -100,7 +100,7 @@ sns.countplot(data=data, x='quality')
 plt.xticks([0, 1], ['Bad', 'Good'])
 
 
-# In[19]:
+# In[12]:
 
 
 # Get distinc count of quality
@@ -108,7 +108,7 @@ quality_count = data['quality'].value_counts()
 quality_count
 
 
-# In[20]:
+# In[13]:
 
 
 # Drop the target variable
@@ -117,7 +117,7 @@ X = data.drop('quality', axis=1)
 y = data['quality']
 
 
-# In[21]:
+# In[14]:
 
 
 # Display shape
@@ -125,7 +125,7 @@ print(X.shape)
 print(y.shape)
 
 
-# In[22]:
+# In[15]:
 
 
 # from sklearn.feature_selection import SelectKBest, f_classif
@@ -141,7 +141,7 @@ print(y.shape)
 # X = X[X.columns[kbest.get_support()]]
 
 
-# In[23]:
+# In[16]:
 
 
 from sklearn.model_selection import train_test_split
@@ -150,7 +150,7 @@ from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=42)
 
 
-# In[24]:
+# In[17]:
 
 
 from sklearn.linear_model import LogisticRegression
@@ -162,7 +162,7 @@ logreg_model = LogisticRegression()
 logreg_model.fit(X_train, y_train)
 
 
-# In[25]:
+# In[18]:
 
 
 # Predict the labels of the test set
@@ -180,7 +180,7 @@ plt.ylabel('Actual')
 plt.show()
 
 
-# In[26]:
+# In[19]:
 
 
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
@@ -204,7 +204,7 @@ print("Recall:", recall)
 print("F1 score:", f1)
 
 
-# In[27]:
+# In[20]:
 
 
 # Import relevant libraries
@@ -229,18 +229,18 @@ plt.show()
 
 
 # Create the Dash app
-# external_stylesheets = ['https://fonts.googleapis.com/css2?family=Open+Sans&display=swap']
+external_stylesheets = ['https://fonts.googleapis.com/css2?family=Open+Sans&display=swap']
 
-app = dash.Dash(__name__)
+#app = dash.Dash(__name__)
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
-# app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 # Define the layout of the dashboard
 app.layout = html.Div(
-#   style={'font-family': 'Open Sans'}, 
+    style={'font-family': 'Open Sans'}, 
     children=[
     
-    html.H1('CO544-2023 Lab 3: Wine Quality Prediction'),
+    html.H1(('CO544-2023 Lab 3: Wine Quality Prediction'), style= {'text-align': 'center'}),
     
     html.Div([
         html.H3('Exploratory Data Analysis'),
